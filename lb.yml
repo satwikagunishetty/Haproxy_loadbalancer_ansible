@@ -1,0 +1,30 @@
+- hosts: myweb
+  tasks:
+  - name: "install httpd rpm"
+    package:
+      name: "httpd"
+      state: present
+  - name: "install php"
+    package:
+      name: "php"
+      state: present
+  - name: "copy website"
+    copy:
+      dest: "/var/www/html/index.php"
+      src: lb.php
+  - service:
+      name: "httpd"
+      state: restarted
+
+- hosts: mylb
+  tasks:
+  - name: "install lb haproxy"
+    package:
+      name: "haproxy"
+      state: present
+  - template:
+      dest: "/etc/haproxy/haproxy.cfg"
+      src: "haproxy.cfg"
+  - service:
+      name: "haproxy"
+      state: restarted
