@@ -1,1 +1,1 @@
-# lb.php
+# Haproxy_loadbalancer_ansible
